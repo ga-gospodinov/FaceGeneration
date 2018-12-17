@@ -1,6 +1,10 @@
 # FaceGeneration
-Face Generation using Generative Adversarial Networks
+Генерация изображений лиц людей с заданными свойствами(пол, цвет волос, ...).
 
-## TODO:
-* http://cs229.stanford.edu/proj2017/final-reports/5238859.pdf
-* https://arxiv.org/pdf/1706.00409.pdf
+## Данные
+[CelebA dataset](https://www.kaggle.com/jessicali9530/celeba-dataset)
+
+## Модели
+* [conditional GAN](./cGAN)
+* [Fader Network](./FaderNetwork)
+
