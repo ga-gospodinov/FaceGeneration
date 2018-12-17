@@ -8,3 +8,6 @@
 * [conditional GAN](./cGAN)
 * [Fader Network](./FaderNetwork)
 
+## Презентация
+[версия 17.12.2018](./presentation.pdf)
+
