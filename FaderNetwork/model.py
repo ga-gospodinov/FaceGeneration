@@ -1,20 +1,22 @@
 import torch
-import torchvision
 from torch import nn
+
 
 def Conv_BN_ReLU(in_channels, num_of_filters):
     return nn.Sequential(
-                            nn.Conv2d(in_channels, num_of_filters, kernel_size=4, stride=2, padding=1),
-                            nn.BatchNorm2d(num_features=num_of_filters),
-                            nn.LeakyReLU(0.2)
-                        )
+        nn.Conv2d(in_channels, num_of_filters, kernel_size=4, stride=2, padding=1),
+        nn.BatchNorm2d(num_features=num_of_filters),
+        nn.LeakyReLU(0.2)
+    )
+
 
 def deConv_BN_ReLU(in_channels, num_of_filters):
     return nn.Sequential(
-                            nn.ConvTranspose2d(in_channels, num_of_filters, kernel_size=4, stride=2, padding=1),
-                            nn.BatchNorm2d(num_features=num_of_filters),
-                            nn.ReLU()
-                        )
+        nn.ConvTranspose2d(in_channels, num_of_filters, kernel_size=4, stride=2, padding=1),
+        nn.BatchNorm2d(num_features=num_of_filters),
+        nn.ReLU()
+    )
+
 
 class ConvAutoEncoder(nn.Module):
     def __init__(self, pretrained=False):
@@ -38,10 +40,9 @@ class ConvAutoEncoder(nn.Module):
             deConv_BN_ReLU(16 + 1, 3)
         )
         if pretrained:
-            model = torch.load('./5k_images_gender_model.pth.tar', map_location='cpu')
+            model = torch.load('./5k_images_gender_model.pth', map_location='cpu')
             self.encoder = model.encoder
             self.decoder = model.decoder
 
     def forward(self, img, features):
-        self.embeddings = self.encoder(img)
-        return self.decoder(torch.cat((self.embeddings, features), dim=1))
+        return self.decoder(torch.cat((self.encoder(img), features), dim=1))
